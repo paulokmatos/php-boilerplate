@@ -1,0 +1,9 @@
+/.idea
+/.vscode
+/vendor
+/public/build
+/node_modules
+/.phpunit.cache
+.env
+.coverage
+*.cache

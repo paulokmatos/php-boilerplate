@@ -1,0 +1,24 @@
+name: pr-phpcs-validate
+on:
+  pull_request:
+
+jobs:
+  sniff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Cache Composer Downloads
+        uses: actions/cache@v1
+        with:
+          path: vendor/
+          key: ${{ runner.OS }}-composer-${{ hashFiles('*/composer.lock') }}
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+      - name: Installing dependencies
+        run: composer install
+      - name: Running sniffer PSR12
+        run: make validate-phpcs
+      - name: Running sniffer PSR12 in tests files
+        run: make validate-phpcs-tests
